@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Animation CSS</title>
+
+		<style type="text/css">		
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				background-color: black; 
+				color: white; 
+				text-align: center; 
+				font-family: sans-serif;
+			}
+
+			.container {
+				max-width: 100%; 
+				min-height: calc(100vh - 20px);
+				margin: 0 auto; 
+				padding: 10px;
+				background-color: black; 
+			}	
+
+			.block {
+				height: 300px;
+			}
+			/* Animation CSS */	
+			.paragraph span {
+				display: block;
+				opacity: 0;
+			}
+
+			.animate {
+				animation: reveal .5s forwards var(--delay);			
+			}
+
+			@keyframes reveal {
+				from {
+					translate: 0 20px;
+				}
+				to {
+					translate: none;
+					opacity: 1;
+				}
+			}
+
+		</style>
+	</head>
+	<body>
+		
+		<div class="container">
+			<h2 class="title">Animation CSS delay to string</h2>
+			<hr>
+
+			<div class="block"></div>
+
+			<p class="paragraph">
+				<span class="scroll-item" style="--delay: 0s;">Don't be frightend about what comes next.</span>
+				<span class="scroll-item" style="--delay: 0.15s;">You should embrance uncertainty.</span>
+				<span class="scroll-item" style="--delay: 0.30s;">Be open, and allow it to lead you places.</span>
+				<span class="scroll-item" style="--delay: 0.40s;">Don't be frightend about what comes next.</span>
+				<span class="scroll-item" style="--delay: 0.50s;">You should embrance uncertainty.</span>
+				<span class="scroll-item" style="--delay: 0.60s;">Be open, and allow it to lead you places.</span>
+			</p>
+			
+		</div>
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', () => {
+				const scrollItems = document.querySelectorAll('.scroll-item');
+
+				const scrollAnimation = () => {
+					let windowCenter = (window.innerHeight / 1.1) + window.scrollY;
+
+					console.log(windowCenter);
+
+					scrollItems.forEach(el => {
+						let scrollOffset = el.offsetTop + (el.offsetHeight / 2);
+						if(windowCenter >= scrollOffset) {
+							el.classList.add('animate');
+						} else {
+							el.classList.remove('animate');
+						}
+					})
+				};
+
+				scrollAnimation();
+
+				window.addEventListener('scroll', () => {
+					scrollAnimation();
+				})
+			})
+
+		</script>
+
+	</body>
+</html>
